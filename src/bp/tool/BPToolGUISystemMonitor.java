@@ -3,6 +3,7 @@ package bp.tool;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.lang.ref.WeakReference;
@@ -45,7 +46,11 @@ public class BPToolGUISystemMonitor extends BPToolGUIBase<BPToolGUISystemMonitor
 
 	protected void setFramePrefers(BPFrame f)
 	{
-		f.setPreferredSize(UIUtil.getPercentDimension(0.4f, 0.4f));
+		int xc = 2;
+		int yc = 1;
+		int w = 200;
+		int h = 80;
+		f.getContentPane().setPreferredSize(UIUtil.scaleUIDimension(new Dimension(w * xc, h * yc)));
 		f.pack();
 		if (!f.isLocationByPlatform())
 			f.setLocationRelativeTo(null);

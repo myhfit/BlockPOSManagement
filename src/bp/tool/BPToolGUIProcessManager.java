@@ -9,7 +9,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Action;
@@ -25,25 +24,22 @@ import bp.BPGUICore;
 import bp.locale.BPLocaleConstCC;
 import bp.locale.BPLocaleConstCoreDict;
 import bp.locale.BPLocaleHelpers;
+import bp.nativehelper.BPNativeHelpers;
 import bp.os.process.BPProcessHandler.ProcessInfo;
 import bp.os.process.BPProcessHandlers;
-import bp.res.BPResource;
-import bp.res.BPResourceFileSystem;
 import bp.ui.actions.BPAction;
 import bp.ui.actions.BPActionConstCommon;
 import bp.ui.actions.BPActionConstOSManagement;
 import bp.ui.actions.BPActionHelpers;
 import bp.ui.container.BPToolBarSQ;
-import bp.ui.dialog.BPDialogSelectResource2;
-import bp.ui.dialog.BPDialogSelectResource2.SELECTSCOPE;
 import bp.ui.res.icon.BPIconResV;
 import bp.ui.scomp.BPTable;
 import bp.ui.scomp.BPTable.BPTableRendererFileSize;
 import bp.ui.scomp.BPTextField;
 import bp.ui.table.BPTableFuncsBase;
+import bp.ui.util.CommonUIOperations;
 import bp.ui.util.UIStd;
 import bp.ui.util.UIUtil;
-import bp.util.ClassUtil;
 import bp.util.SystemUtil;
 
 public class BPToolGUIProcessManager extends BPToolGUIBase<BPToolGUIProcessManager.BPToolGUIContextPM>
@@ -55,7 +51,7 @@ public class BPToolGUIProcessManager extends BPToolGUIBase<BPToolGUIProcessManag
 
 	protected boolean checkRequirement()
 	{
-		if (ClassUtil.getTClass("com.sun.jna.Native", ClassUtil.getExtensionClassLoader()) != null)
+		if (BPNativeHelpers.hasJNASupport())
 			return true;
 		UIStd.err(new RuntimeException("Need JNA in class path"));
 		return false;
@@ -160,21 +156,9 @@ public class BPToolGUIProcessManager extends BPToolGUIBase<BPToolGUIProcessManag
 
 		protected void onRun(ActionEvent e)
 		{
-			BPDialogSelectResource2 dlg = new BPDialogSelectResource2();
-			dlg.setScope(SELECTSCOPE.COMPUTER);
-			dlg.showOpen();
-			BPResource[] ress = dlg.getSelectedResources();
-			if (ress != null && ress.length > 0)
+			String[] filenames = CommonUIOperations.showOpenFilesDialog(null, null, cb -> cb.setPreSelectedResource(null));
+			if (filenames != null && filenames.length > 0)
 			{
-				List<String> filenames = new ArrayList<String>();
-				for (BPResource res : ress)
-				{
-					if (res.isFileSystem())
-					{
-						BPResourceFileSystem resf = (BPResourceFileSystem) res;
-						filenames.add(resf.getFileFullName());
-					}
-				}
 				for (String filename : filenames)
 				{
 					String workdir = null;
@@ -255,7 +239,7 @@ public class BPToolGUIProcessManager extends BPToolGUIBase<BPToolGUIProcessManag
 		public BPTableFuncsProcessInfo()
 		{
 			m_colnames = new String[] { "PID", "Filename", "Memory" };
-			m_collabels = new String[] { "PID", BPLocaleHelpers.getValue(BPLocaleConstCC.FILENAME), BPLocaleHelpers.translate(BPLocaleConstCoreDict.S, "Memory") };
+			m_collabels = new String[] { "PID", BPLocaleConstCC.FILENAME.text(), BPLocaleHelpers.translate(BPLocaleConstCoreDict.S, "Memory") };
 			m_cols = new Class[] { Integer.class, String.class, Long.class };
 		}
 
