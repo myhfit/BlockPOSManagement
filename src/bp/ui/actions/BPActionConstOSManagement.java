@@ -11,6 +11,7 @@ public enum BPActionConstOSManagement implements BPActionConst
 	TNAME_SYSTEMMON,
 	TNAME_WINDOWMAN,
 	TNAME_POWERMAN,
+	TNAME_ROUTETABLE,
 	
 	TXT_OSMAN,
 
