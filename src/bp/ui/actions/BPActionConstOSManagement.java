@@ -21,6 +21,6 @@ public enum BPActionConstOSManagement implements BPActionConst
 
 	public String getPackName()
 	{
-		return "osman";
+		return "ac_osman";
 	}
 }

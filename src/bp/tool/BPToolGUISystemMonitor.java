@@ -98,7 +98,7 @@ public class BPToolGUISystemMonitor extends BPToolGUIBase<BPToolGUISystemMonitor
 			BPLabel lbl = new BPLabel(label, BPLabel.CENTER);
 			lbl.setLabelFont();
 			lbl.setBorder(new MatteBorder(0, 0, 1, 0, UIConfigs.COLOR_WEAKBORDER()));
-			rc.setBackground(UIConfigs.COLOR_TEXTBG());
+			rc.setBackground(UIConfigs.COLOR_PANELBG());
 			rc.setLayout(new BorderLayout());
 			rc.setBorder(new CompoundBorder(new EmptyBorder(2, 2, 2, 2), new MatteBorder(1, 1, 1, 1, UIConfigs.COLOR_TEXTQUARTER())));
 			rc.add(c, BorderLayout.CENTER);

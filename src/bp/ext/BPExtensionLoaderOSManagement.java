@@ -50,7 +50,7 @@ public class BPExtensionLoaderOSManagement implements BPExtensionLoader
 
 	public void preload()
 	{
-		SystemUtil.addSystemInfoHandler("OS", OSInfoHandlers::getOSInfo);
+		SystemUtil.addSystemInfoHandler("OS", OSInfoHandlers::getOSInfoKVs);
 		{
 			BPNativeHelperJNA h = new BPNativeHelperJNA();
 			if (h.checkPlatform())

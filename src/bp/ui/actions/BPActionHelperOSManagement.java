@@ -6,7 +6,7 @@ import bp.ui.res.icon.BPIconResV;
 
 public class BPActionHelperOSManagement extends BPActionHelperBase<BPActionConstOSManagement>
 {
-	public final static String ACTIONHELPER_PACK_OSMAN = "osman";
+	public final static String ACTIONHELPER_PACK_OSMAN = "ac_osman";
 
 	public String getPackName()
 	{
